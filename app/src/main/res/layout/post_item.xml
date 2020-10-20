@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_main_subArt_navbar_item"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
 
     <LinearLayout
 
@@ -31,8 +30,6 @@
         </LinearLayout>
 
 
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,10 +49,10 @@
 
             <TextView
                 android:id="@+id/title"
-                android:layout_marginBottom="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
                 android:text="Title"
                 android:textSize="15dp" />
 
@@ -73,23 +70,19 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="start"
 
             android:orientation="vertical">
 
 
-            <Button
-                android:id="@+id/btn_fav"
-                android:layout_marginTop="15dp"
-                android:layout_width="50dp"
+            <ImageView
+                android:id="@+id/iv_fav"
+                android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/rounded_button"
-                android:checked="true"
-                android:textAllCaps="false"
-                android:text="Fav"
-                android:textColor="@android:color/white" />
+                android:background="@drawable/ic_heart"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="5dp">
+
+            </ImageView>
         </LinearLayout>
 
     </LinearLayout>

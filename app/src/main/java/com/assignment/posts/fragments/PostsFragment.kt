@@ -6,17 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.assignment.posts.R
 import com.assignment.posts.room.Post
-import com.assignment.posts.room.RoomClient
 import com.assignment.posts.viewmodel.PostViewModel
-import kotlinx.coroutines.Dispatchers
 
 class PostsFragment : Fragment() {
 
@@ -40,30 +39,25 @@ class PostsFragment : Fragment() {
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = RecyclerAdapter()
 
-       /* postViewModel.getAllPostAsLiveData().observe(
+        postViewModel.getAllPostAsLiveData().observe(
             viewLifecycleOwner,
             { posts ->
                 if(!posts.isNullOrEmpty()) {
                     postData = posts
-                 //       .filter {
-                           // it.isFavorite
-                 //       }
-
                     activity?.runOnUiThread {
                         recyclerView.adapter!!.notifyDataSetChanged()
                     }
+                } else {
+                    postViewModel.callPostsApi()
                 }
             }
-        )*/
+        )
 
         return view
     }
 
     override fun onResume() {
         super.onResume()
-
-//        if(postViewModel.postSize() ==  0)
-//            postViewModel.callPostsApi()
     }
 
     inner class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.PostViewHolder>()  {
@@ -74,13 +68,13 @@ class PostsFragment : Fragment() {
             private var titleTextView: TextView
             private var uidTextView: TextView
             private var bodyTextView: TextView
-            private var btnFav: Button
+            private var ivFav: ImageView
 
             init {
                 titleTextView = v.findViewById(R.id.title)
                 uidTextView = v.findViewById(R.id.uid)
                 bodyTextView = v.findViewById(R.id.body)
-                btnFav = v.findViewById(R.id.btn_fav)
+                ivFav = v.findViewById(R.id.iv_fav)
                 v.setOnClickListener(this)
             }
 
@@ -89,9 +83,18 @@ class PostsFragment : Fragment() {
                 titleTextView.text = "Post Title: " +post.title
                 bodyTextView.text = "Post Body: " +post.body
 
-                btnFav.setOnClickListener {
-                    postViewModel.markAsFavourit(post)
-                    Toast.makeText(activity,"this is toast message",Toast.LENGTH_SHORT).show()
+                if(post.isFavorite!!){
+                    ivFav.setColorFilter(ContextCompat.getColor(requireContext(), R.color.red),  android.graphics.PorterDuff.Mode.SRC_IN)
+                } else {
+                    ivFav.setColorFilter(ContextCompat.getColor(requireContext(), R.color.bg),  android.graphics.PorterDuff.Mode.SRC_IN)
+                }
+
+                ivFav.setOnClickListener {
+
+                    ivFav.setColorFilter(ContextCompat.getColor(requireContext(), R.color.red),  android.graphics.PorterDuff.Mode.SRC_IN)
+
+                    postViewModel.addOrRemoveFavourite(post)
+                    Toast.makeText(activity,"Added to Favourites",Toast.LENGTH_SHORT).show()
                 }
             }
 

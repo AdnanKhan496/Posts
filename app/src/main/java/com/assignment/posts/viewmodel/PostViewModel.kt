@@ -1,31 +1,25 @@
 package com.assignment.posts.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.assignment.posts.networkLayer.ApiService
 import com.assignment.posts.room.Post
 import com.assignment.posts.room.RoomClient
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.*
-import kotlin.coroutines.CoroutineContext
 
-class PostViewModel: ViewModel(), CoroutineScope {
 
-    private var job: Job
-    override val coroutineContext: CoroutineContext
-        get() = job + Dispatchers.Main
-
-    init {
-        job = Job()
-    }
+class PostViewModel: ViewModel() {
 
     fun getAllPostAsLiveData(): LiveData<List<Post>>{
         return RoomClient.appDatabase.postDao()!!.all
     }
 
-    fun postSize(): Int{
-        return RoomClient.appDatabase.postDao()!!.dataSize.size
+    fun getFavouriteAsLiveData(): LiveData<List<Post>>{
+        return RoomClient.appDatabase.postDao()!!.favouritePosts
     }
 
     fun callPostsApi(){
@@ -34,28 +28,24 @@ class PostViewModel: ViewModel(), CoroutineScope {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe { response ->
-                launch {
-                    onHandleResponse(response)
-                }
+                onHandleResponse(response)
             }
     }
 
-    suspend fun onHandleResponse(response: List<Post>){
-        if(response.size != 0){
+    fun onHandleResponse(response: List<Post>){
+        if(response.isNotEmpty()){
             response.forEach { post ->
-                withContext(Dispatchers.IO){
+                viewModelScope.launch {
                     RoomClient.appDatabase.postDao()!!.insert(post)
                 }
             }
         }
     }
 
-    fun markAsFavourit(post: Post){
-        launch {
-            post.isFavorite = true
-            withContext(Dispatchers.IO) {
-                RoomClient.appDatabase.postDao()!!.update(post)
-            }
+    fun addOrRemoveFavourite(post: Post){
+        viewModelScope.launch {
+            post.isFavorite = !post.isFavorite!!
+            RoomClient.appDatabase.postDao()!!.update(post)
         }
     }
 }

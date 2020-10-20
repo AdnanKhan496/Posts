@@ -9,10 +9,12 @@ import androidx.navigation.ui.setupWithNavController
 import com.assignment.posts.R
 import com.assignment.posts.fragments.FavouritesFragment
 import com.assignment.posts.fragments.PostsFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_base.*
 
 class BaseActivity : AppCompatActivity() {
     lateinit var navController: NavController
+    lateinit var bottomNavigationView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,42 +22,16 @@ class BaseActivity : AppCompatActivity() {
 
         setUpViews()
 
-       // title=resources.getString(R.string.favourites)
-       // loadFragment(PostsFragment())
-
-       /* navigationView.setOnNavigationItemSelectedListener {
-            when(it.itemId){
-                R.id.navigation_posts-> {
-                    title=resources.getString(R.string.posts)
-                    loadFragment(PostsFragment())
-                    return@setOnNavigationItemSelectedListener true
-                }
-
-                R.id.navigation_fav-> {
-                    title=resources.getString(R.string.favourites)
-                    loadFragment(FavouritesFragment())
-                    return@setOnNavigationItemSelectedListener true
-                }
-
-            }
-            false
-
-        }*/
     }
 
     fun setUpViews(){
         //Finding The Navigation Controller
-        navController = findNavController(R.id.fragNavHost)
+        navController = findNavController(R.id.nav_host_fragment)
+
+        bottomNavigationView = findViewById(R.id.bottomNavView)
 
         // Setting Navigation Controller with the BottomNavigationView
-        bottomNavView.setupWithNavController(navController)
-    }
-
-    private fun loadFragment(fragment: Fragment) {
-        // load fragment
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.container, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+        bottomNavigationView.isItemHorizontalTranslationEnabled = false
+        bottomNavigationView.setupWithNavController(navController)
     }
 }

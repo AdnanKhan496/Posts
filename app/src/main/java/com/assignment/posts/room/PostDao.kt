@@ -9,15 +9,15 @@ interface PostDao {
     @get:Query("SELECT * FROM post")
     val all: LiveData<List<Post>>
 
-    @get:Query("SELECT * FROM post")
-    val dataSize: List<Post>
+    @get:Query("SELECT * FROM post where isFavorite = 1")
+    val favouritePosts: LiveData<List<Post>>
 
     @Insert
-    fun insert(task: Post?)
+    suspend fun insert(post: Post?)
 
     @Delete
-    fun delete(task: Post?)
+    fun delete(post: Post?)
 
     @Update
-    fun update(task: Post?)
+    suspend fun update(post: Post?)
 }
