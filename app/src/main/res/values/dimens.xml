@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_medium">12dp</dimen>
+    <dimen name="elevation">5dp</dimen>
+    <dimen name="btn_radius">200dp</dimen>
+</resources>
