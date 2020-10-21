@@ -5,16 +5,16 @@
     android:layout_marginTop="@dimen/margin_medium"
     android:background="@drawable/rounded_border"
     android:baselineAligned="false"
-    android:orientation="horizontal">
+    android:elevation="@dimen/elevation"
+    android:orientation="horizontal"
+    android:weightSum="0">
 
     <LinearLayout
         android:id="@+id/ll_side"
         android:layout_width="10dp"
         android:layout_height="match_parent"
         android:background="@drawable/half_rounded"
-        android:baselineAligned="false"
-        android:orientation="vertical">
-
+        android:orientation="horizontal">
     </LinearLayout>
 
 
@@ -23,45 +23,57 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_medium"
         android:layout_weight="4"
-        android:baselineAligned="false"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/uid"
+            android:id="@+id/postId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:text="ID"
+            android:text="Post ID"
             android:textColor="@android:color/black"
             android:textSize="15dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone"/>
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/commentId"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"
-            android:text="Title"
-            android:textSize="15sp" />
+            android:text="Comment ID"
+            android:textSize="15dp"
+            android:visibility="gone"/>
 
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:text="Name"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:text="Email"
+            android:textSize="15dp" />
         <TextView
             android:id="@+id/body"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:text="Body"
-            android:textSize="15sp" />
-
-
+            android:textSize="15dp" />
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-
+        android:orientation="vertical"
+        android:visibility="gone">
         <ImageView
             android:id="@+id/iv_fav"
             android:layout_width="40dp"
@@ -69,9 +81,6 @@
             android:layout_marginTop="15dp"
             android:layout_marginRight="5dp"
             android:src="@drawable/ic_heart">
-
         </ImageView>
     </LinearLayout>
-
 </LinearLayout>
-
