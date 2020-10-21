@@ -1,5 +1,6 @@
 package com.assignment.posts.fragments
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -76,12 +77,12 @@ class FavouritesFragment : Fragment() {
                 titleTextView.text = "Post Title: " +post.title
                 bodyTextView.text = "Post Body: " +post.body
 
-                ivFav.setColorFilter(ContextCompat.getColor(requireContext(), R.color.red),  android.graphics.PorterDuff.Mode.SRC_IN)
-                ivFav.setOnClickListener {
-                    ivFav.setColorFilter(ContextCompat.getColor(requireContext(), R.color.bg),  android.graphics.PorterDuff.Mode.SRC_IN)
-
+                ivFav.setColorFilter(Color.RED)
+                 ivFav.setOnClickListener {
+                     ivFav.setColorFilter(Color.GRAY)
                     postViewModel.addOrRemoveFavourite(post)
                     Toast.makeText(activity,"Removed from Favourites",Toast.LENGTH_SHORT).show()
+
                 }
             }
 

@@ -1,5 +1,6 @@
 package com.assignment.posts.fragments
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -18,12 +19,9 @@ import com.assignment.posts.room.Post
 import com.assignment.posts.viewmodel.PostViewModel
 
 class PostsFragment : Fragment() {
-
     val postViewModel by activityViewModels<PostViewModel>()
-
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var recyclerView: RecyclerView
-
     var postData: List<Post> = emptyList()
 
     override fun onCreateView(
@@ -34,7 +32,6 @@ class PostsFragment : Fragment() {
         var view = inflater.inflate(R.layout.fragment_posts, container, false)
 
         recyclerView = view.findViewById(R.id.recyclerview)
-
         linearLayoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = RecyclerAdapter()
@@ -52,7 +49,6 @@ class PostsFragment : Fragment() {
                 }
             }
         )
-
         return view
     }
 
@@ -61,7 +57,6 @@ class PostsFragment : Fragment() {
     }
 
     inner class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.PostViewHolder>()  {
-
         inner class PostViewHolder(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
 
             private var view: View = v
@@ -84,17 +79,15 @@ class PostsFragment : Fragment() {
                 bodyTextView.text = "Post Body: " +post.body
 
                 if(post.isFavorite!!){
-                    ivFav.setColorFilter(ContextCompat.getColor(requireContext(), R.color.red),  android.graphics.PorterDuff.Mode.SRC_IN)
+                    ivFav.setColorFilter(Color.RED)
                 } else {
-                    ivFav.setColorFilter(ContextCompat.getColor(requireContext(), R.color.bg),  android.graphics.PorterDuff.Mode.SRC_IN)
+                    ivFav.setColorFilter(Color.GRAY)
                 }
 
                 ivFav.setOnClickListener {
-
-                    ivFav.setColorFilter(ContextCompat.getColor(requireContext(), R.color.red),  android.graphics.PorterDuff.Mode.SRC_IN)
-
+                    ivFav.setColorFilter(Color.RED)
                     postViewModel.addOrRemoveFavourite(post)
-                    Toast.makeText(activity,"Added to Favourites",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Added to Favourites", Toast.LENGTH_SHORT).show()
                 }
             }
 

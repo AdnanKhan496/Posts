@@ -66,4 +66,5 @@ dependencies {
 
     // Koin for Kotlin
     implementation "org.koin:koin-core:2.1.6"
+    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
 }

@@ -7,7 +7,6 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/margin_medium"
@@ -17,7 +16,6 @@
         android:backgroundTint="@color/bg"
         android:elevation="@dimen/elevation"
         android:orientation="horizontal"
-
         android:weightSum="0">
 
         <LinearLayout
@@ -78,7 +76,7 @@
                 android:id="@+id/iv_fav"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/ic_heart"
+                android:src="@drawable/ic_heart"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="5dp">
 
